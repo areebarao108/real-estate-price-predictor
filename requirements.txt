@@ -1,0 +1,17 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+streamlit
+requests
+beautifulsoup4
+selenium
+scikit-learn
+
+# local package
+-e .
+
+# external requirements
+
+python-dotenv>=0.5.1
