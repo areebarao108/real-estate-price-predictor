@@ -1,57 +1,80 @@
-real_estate
-==============================
+# Gurgaon Real Estate Intelligence
 
-real estate price prediction and recommendation project
+An end-to-end machine learning platform for real estate price prediction, market analytics, and apartment recommendations in Gurgaon. Deployed on AWS EC2 as a live Streamlit web application.
 
-Project Organization
-------------
+🔗 **Live Demo:** [http://15.206.212.117:8501](http://15.206.212.117:8501)
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+---
 
+## What It Does
 
---------
+| Feature | Description |
+|---|---|
+| **Price Predictor** | Estimate property prices based on location, size, amenities, and property age using a tuned Random Forest model |
+| **Market Analytics** | Interactive geomap visualization showing price-per-sqft trends across Gurgaon sectors |
+| **Apartment Recommender** | Find apartments within a chosen radius of any location |
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+---
+
+## The ML Pipeline
+
+**Dataset:** Real estate listings from 99acres.com for Gurgaon
+
+**End-to-end pipeline built in Jupyter notebooks:**
+
+1. **Exploratory Data Analysis** — Extensive EDA on every feature: distributions, correlations, sector-wise trends
+2. **Data Preprocessing** — Missing value imputation, categorical encoding, text parsing
+3. **Feature Engineering** — Created new features from raw data to improve predictive power
+4. **Outlier Treatment** — Statistical methods to handle price and area anomalies
+5. **Feature Selection** — Identified most predictive features to reduce noise
+6. **Model Selection** — Baseline SVR → Random Forest with hyperparameter tuning
+7. **Model Serialization** — Saved trained pipeline as `.pkl` for inference
+
+**Final Model:** Random Forest Regressor
+- **R² Score:** 0.90 (90% variance explained)
+- **Best Hyperparameters:** `max_depth=20`, `max_features=sqrt`, `n_estimators=300`
+
+---
+
+## Tech Stack
+
+| Layer | Tools |
+|---|---|
+| ML & Data Science | Python, Scikit-learn, Pandas, NumPy |
+| Visualization | Plotly, Folium, Matplotlib, Seaborn |
+| App Framework | Streamlit |
+| Deployment | AWS EC2, WinSCP |
+| Artifacts | Pickle (pipeline & dataset) |
+
+---
+
+## Project Structure
+```
+real_estate/
+├── Home.py                           # Streamlit entry point
+├── pages/
+│   ├── 1_price_predictor.py        # Price prediction interface
+│   ├── 2_analysis_app.py           # Geomap & market analytics
+│   └── 3_recommend_apartments.py   # Location-based recommender
+├── notebooks/                        # EDA, preprocessing, model training
+├── src/                              # Helper modules
+├── requirements.txt                  # Python dependencies
+└── README.md                         # This file
+```
+
+> **Note:** The trained model pipeline (`pipeline.pkl`) and processed dataset are stored locally and excluded from Git via `.gitignore` due to file size. They are deployed alongside the application on AWS EC2.
+
+---
+
+## How to Run Locally
+
+```bash
+# Clone the repo
+git clone https://github.com/areebarao108/real_estate.git
+cd real_estate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the Streamlit app
+streamlit run Home.py
