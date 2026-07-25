@@ -1,3 +1,5 @@
+*.pkl
+datasets_app
 myenv
 models
 reports
