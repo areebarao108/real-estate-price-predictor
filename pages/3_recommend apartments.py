@@ -38,7 +38,7 @@ def recommend_properties_with_scores(property_name, top_n=5):
     return recommendations_df
 
 
-st.dataframe(location_df)
+
 
 st.title('Selcet location and radius')
 selected_location=st.selectbox('Location',sorted(location_df.columns.to_list()))
